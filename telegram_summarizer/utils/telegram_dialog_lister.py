@@ -17,7 +17,7 @@ class TelegramDialogLister:
         self.client: Optional[TelegramClient] = None
 
     @staticmethod
-    def _get_env_var(var_name: str, is_int: bool = False) -> str:
+    def _get_env_var(var_name: str, is_int: bool = False) -> str | int:
         value = os.getenv(var_name)
         if not value:
             raise ValueError(
@@ -26,7 +26,7 @@ class TelegramDialogLister:
             )
         if is_int:
             try:
-                return str(int(value))
+                return int(value)
             except ValueError:
                 raise ValueError(f"{var_name} must be a valid integer")
         return value
